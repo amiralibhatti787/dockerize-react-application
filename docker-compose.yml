@@ -1,0 +1,19 @@
+version: "3"
+services: # Containers
+  marketplace: # Container name
+    build: # build: . means look for Docker file into current working directory and buil the image according docker file configuration
+      context: . # look into curret directory
+      dockerfile: Dockerfile.dev # for docker file which name is Dcokerfile.dev and buil the image according docker file configuration
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules #ignore node_modules while make changes in conatiner files
+      - .:/app #copy every change from WORKDIR to conatiner.
+  tests: # Container name
+    build: # build: . means look for Docker file into current working directory and buil the image according docker file configuration
+      context: . # look into curret directory
+      dockerfile: Dockerfile.dev # for docker file which name is Dcokerfile.dev and buil the image according docker file configuration
+    volumes:
+      - /app/node_modules #ignore node_modules while make changes in conatiner files
+      - .:/app #copy eve
+    command: ["npm", "run", "test"]
